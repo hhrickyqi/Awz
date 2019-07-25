@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ricky.dao.AdminDao"><!--对应接口-->
+
+    <!--List<Product> getAllProduct();-->
+    <select id="getAllProduct" resultType="Product">
+        select * from product
+    </select>
+
+    <!--void updateProduct(Product product);-->
+    <update id="updateProduct" parameterType="Product">
+        update product
+        <set>
+            <if test="pname != null and pname != ''">
+                pname = #{pname},
+            </if>
+            <if test="market_price != null and market_price != ''">
+                market_price = #{market_price},
+            </if>
+
+            <if test="shop_price != null and shop_price != ''">
+                shop_price = #{shop_price},
+            </if>
+
+            <if test="is_hot != null and is_hot != ''">
+                is_hot = #{is_hot},
+            </if>
+            <if test="cid != null and cid != ''">
+                cid = #{cid},
+            </if>
+            <if test="pdesc != null and pdesc != ''">
+                pdesc = #{pdesc},
+            </if>
+            pid = #{pid}
+        </set>
+        <where>
+            pid = #{pid}
+        </where>
+    </update>
+
+    <!--Product getProductById(Integer id);-->
+    <select id="getProductById" parameterType="Integer" resultType="Product">
+        select * from product where pid = #{pid}
+    </select>
+
+    <!--void deleteProduct(Integer pid);-->
+    <delete id="deleteProduct" parameterType="Integer">
+        delete from product where pid = #{pid}
+    </delete>
+
+    <!--void addProduct(Product product);-->
+    <insert id="addProduct" parameterType="Product">
+        insert into product values(null , #{pname} ,#{market_price} ,#{shop_price}, null,null, #{is_hot},#{pdesc},null,#{cid})
+    </insert>
+
+    <!-- List<Product> getProductsByWord(String word);-->
+    <select id="getProductsByWord" parameterType="String" resultType="Product">
+        select * from product
+        <where>
+            pname like "%"#{word}"%"
+        </where>
+    </select>
+
+   <!-- List<Product> getProductsByCondition(Condition condition);-->
+    <select id="getProductsByCondition" parameterType="Condition" resultType="Product">
+        select * from product
+        <where>
+            <if test="pname != null and pname != ''">
+                and pname like "%"#{pname}"%"
+            </if>
+            <if test="cid != null and cid != ''">
+                and cid = #{cid}
+            </if>
+            <if test="is_hot != null and is_hot != ''">
+                and is_hot = #{is_hot}
+            </if>
+        </where>
+
+    </select>
+
+    <!--int getProductTotal();-->
+    <select id="getProductTotal" resultType="Integer">
+        select count(*) from product
+    </select>
+
+    <!--List<Product> getProductsByQueryVo(QueryVo vo);-->
+    <select id="getProductByQueryVo" parameterType="QueryVo" resultType="Product">
+        select * from product
+        limit #{startIndex} , #{maxCount}
+    </select>
+
+</mapper>

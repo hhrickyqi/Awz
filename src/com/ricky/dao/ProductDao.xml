@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ricky.dao.ProductDao"><!--对应接口-->
+
+
+    <!--List<Product> getAllProduct();-->
+    <select id="getAllProduct" resultType="Product">
+        select * from product
+    </select>
+
+    <!--int getProductTotal();-->
+    <select id="getProductTotal" resultType="Integer">
+        select count(*) from product
+    </select>
+
+    <!--List<Product> getProductsByQueryVo(QueryVo vo);-->
+    <select id="getProductsByQueryVo" parameterType="QueryVo" resultType="Product">
+        select * from product
+        limit #{startIndex} , #{maxCount}
+    </select>
+
+   <!-- List<Product> getProductsByWord(String word);-->
+    <select id="getProductsByWord" parameterType="String" resultType="Product">
+        select * from product
+        <where>
+            pname like "%"#{word}"%"
+        </where>
+    </select>
+</mapper>

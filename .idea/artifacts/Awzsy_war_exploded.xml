@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="Awzsy:war exploded">
+    <output-path>$PROJECT_DIR$/../Awzsy/out/artifacts/Awzsy_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="Awzsy/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="Awzsy" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
